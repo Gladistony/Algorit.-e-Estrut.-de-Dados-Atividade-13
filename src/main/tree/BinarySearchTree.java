@@ -15,19 +15,49 @@ public class BinarySearchTree implements Tree{
 
     @Override
     public boolean buscaElemento(int valor) {
+        // Chama o método recursivo passando a raiz como parâmetro
+        return buscaElementoRecursivo(raiz, valor);
+    }
+
+    // Método privado que busca um elemento na árvore de forma recursiva
+    private boolean buscaElementoRecursivo(No no, int valor) {
+        // Se o nó é nulo, retorna falso
+        if (no == null) {
+        return false;
+        }
+
+        // Se o valor é igual ao valor do nó, retorna verdadeiro
+        if (valor == no.valor) {
         return true;
+        }
+
+        // Se o valor é menor que o valor do nó, busca na subárvore esquerda
+        if (valor < no.valor) {
+        return buscaElementoRecursivo(no.esquerda, valor);
+        }
+
+        // Se o valor é maior que o valor do nó, busca na subárvore direita
+        return buscaElementoRecursivo(no.direita, valor);
     }
 
     @Override
     public int minimo() {
-        return 0;
+        return minimo(this.raiz).valor;
     }
+    
+    private No minimo(No no) {
+        return no.esquerda == null ? no : minimo(no.esquerda);
+    }
+    
 
     @Override
     public int maximo() {
-        return 0;
+        return maximo(this.raiz).valor;
     }
-
+    
+    private No maximo(No no) {
+        return no.direita == null ? no : maximo(no.direita);
+    }
     @Override
     public void insereElemento(int valor) {
         raiz = insereElementoRecursivo(raiz, valor);
